@@ -1,3 +1,4 @@
-# Laptop Setup
+# Setup Dev Machine
 
-Autoconfigure my new work laptop
+Autoconfigure my developer machine. This is a work in progress as
+I learn Ansible.
