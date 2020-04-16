@@ -1,0 +1,17 @@
+# Project
+/scratch/
+
+# General
+*.log
+
+# Editors
+*.swp
+*.kate-swp
+
+# File Managers
+.DS_Store
+.directory
+Thumbs.db
+
+# Git
+*.orig
