@@ -1,0 +1,26 @@
+
+# How to securely check for host fingerprints
+# https://stackoverflow.com/questions/49670321/what-is-the-secure-correct-way-of-adding-www-github-com-to-the-known-hosts-file
+
+# https://confluence.atlassian.com/bitbucket/ssh-keys-935365775.html
+- name: Add bitbucket.org to known hosts
+  known_hosts:
+    path: /etc/ssh/ssh_known_hosts
+    name: bitbucket.org
+    key: >
+      bitbucket.org ssh-rsa
+      AAAAB3NzaC1yc2EAAAABIwAAAQEAubiN81eDcafrgMeLzaFPsw2kNvEcqTKl/VqLat/MaB33pZy0y3rJZtnqwR2qOOvbwKZYKiEO1O6VqNEBxKvJJe
+      lCq0dTXWT5pbO2gDXC6h6QDXCaHo6pOHGPUy+YBaGQRGuSusMEASYiWunYN0vCAI8QaXnWMXNMdFP3jHAJH0eDsoiGnLPBlBp4TNm6rYI74nMzgz3B
+      9IikW4WVK+dc8KZJZWYjAuORU3jc1c/NPskD2ASinf8v3xnfXeukU0sJ5N6m5E8VLjObPEO+mN2t/FZTMZLiFqPWc/ALSqnMnnhwrNi2rbfg/rd/Ip
+      L8Le3pSBne8+seeFVBoGqzHM9yXw==
+# https://help.github.com/en/github/authenticating-to-github/githubs-ssh-key-fingerprints
+- name: Add github.com to known hosts
+  known_hosts:
+    path: /etc/ssh/ssh_known_hosts
+    name: github.com
+    key: >
+      github.com ssh-rsa
+      AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCO
+      V0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoW
+      f9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+w
+      C604ydGXA8VJiS5ap43JXiUFFAaQ==

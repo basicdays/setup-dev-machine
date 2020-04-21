@@ -1,0 +1,12 @@
+- name: Install VirtualBox
+  block:
+  - name: Add VirtualBox repo key
+    apt_key:
+      id: B9F8D658297AF3EFC18D5CDFA2F683C52980AECF
+      url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+  - name: Add VirtualBox repo
+    apt_repository:
+      repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian {{ ansible_facts['distribution_release'] }} contrib
+  - name: Install VirtualBox
+    apt:
+      name: virtualbox-6.1

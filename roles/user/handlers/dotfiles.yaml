@@ -1,0 +1,10 @@
+- name: Link dotfiles
+  shell:
+    cmd: |
+      . {{ ansible_facts['user_dir'] }}/.homesick/repos/homeshick/homeshick.sh
+      homeshick link -f -b dotfiles
+- name: Link Ubuntu dotfiles
+  shell:
+    cmd: |
+      . {{ ansible_facts['user_dir'] }}/.homesick/repos/homeshick/homeshick.sh
+      homeshick link -f -b dotfiles-ubuntu

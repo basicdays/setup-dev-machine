@@ -1,0 +1,90 @@
+- name: Install packages
+  block:
+    - name: Set Wireshark to use group privs
+      debconf:
+        name: wireshark-common
+        question: wireshark-common/install-setuid
+        vtype: boolean
+        value: 'true'
+    - name: Remove unwanted default packages
+      apt:
+        name:
+          # We're using the Snap version instead
+          - nodejs
+          - nodejs-doc
+        state: absent
+        purge: yes
+    - name: Install Ubuntu packages
+      apt:
+        name:
+          # editors
+          - vim-gtk3
+
+          # hardware
+          - acpi-call-dkms
+          - tlp
+
+          # system tools
+          - cifs-utils
+          - fail2ban
+          - htop
+          - imagemagick
+          - openssh-server
+          - powertop
+          - tmux
+          - wine-stable
+
+          # network tools
+          - curl
+          # - net-tools
+          # - bridge-utils
+          # - wavemon
+          - wireshark
+
+          # git
+          - git
+          - gitk
+          - git-flow
+          - git-gui
+          - kdiff3
+
+          # building
+          - autoconf
+          - automake
+          - build-essential
+          - gettext
+          - libtool
+          - m4
+          - pkg-config
+
+          # programming
+          - fonts-firacode
+          # - pgadmin3
+          # - postgresql-client
+          # - python3-pip
+          - python3-venv
+
+          # applications
+          # - okteta
+          - plasma-applet-redshift-control
+          - steam
+          - yakuake
+          - xsane
+    - name: Install Node.js (snap classic)
+      snap:
+        name: node
+        channel: 12/stable
+        classic: yes
+    - name: Install Slack (snap classic)
+      snap:
+        name: slack
+        classic: yes
+    - name: Install VSCode (snap classic)
+      snap:
+        name: code
+        classic: yes
+    - name: Install snap applications
+      snap:
+        name:
+          - chromium
+          - spotify

@@ -1,0 +1,12 @@
+- name: Install Python applications for user
+  pip:
+    extra_args: --user
+    name:
+      - ansible
+      - awscli
+      - awsebcli
+      - docker-compose
+      - pip
+      - powerline-status
+      - virtualenv
+      - ansible-lint

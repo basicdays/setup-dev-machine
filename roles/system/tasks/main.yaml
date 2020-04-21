@@ -1,0 +1,11 @@
+# Install any packages required by Ansible modules
+- include_tasks: ansible-pre-reqs.yaml
+
+# Install packages
+- include_tasks: docker.yaml
+- include_tasks: known-hosts.yaml
+- include_tasks: packages.yaml
+- include_tasks: virtual-box.yaml
+
+# Modify configuration files
+- include_tasks: etc.yaml

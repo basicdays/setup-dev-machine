@@ -1,0 +1,19 @@
+- name: Setup user dotfiles
+  block:
+    - name: Pull homeshick
+      git:
+        repo: git://github.com/andsens/homeshick.git
+        dest: "{{ ansible_facts['user_dir'] }}/.homesick/repos/homeshick"
+        version: master
+    - name: Pull dotfiles
+      git:
+        repo: git://github.com/basicdays/dotfiles.git
+        dest: "{{ ansible_facts['user_dir'] }}/.homesick/repos/dotfiles"
+        version: master
+      notify: Link dotfiles
+    - name: Pull Ubuntu based dotfiles
+      git:
+        repo: git://github.com/basicdays/dotfiles-ubuntu.git
+        dest: "{{ ansible_facts['user_dir'] }}/.homesick/repos/dotfiles-ubuntu"
+        version: master
+      notify: Link Ubuntu dotfiles
