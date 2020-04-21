@@ -87,4 +87,6 @@
       snap:
         name:
           - chromium
+          - discord
           - spotify
+          - telegram-desktop
