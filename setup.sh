@@ -3,7 +3,7 @@
 
 set -Eeuo pipefail
 
-sudo apt install git python3-pip
+sudo apt-get install -y git python3-pip
 pip3 install --user ansible
 # shellcheck source=/dev/null
 . "${HOME}/.profile"
@@ -15,4 +15,4 @@ ansible-pull \
 	--url https://github.com/basicdays/setup-dev-machine.git \
 	--ask-become-pass \
 	-i inventory/local.yaml \
-	site-yaml
+	site.yaml
