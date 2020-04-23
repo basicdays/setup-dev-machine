@@ -34,30 +34,45 @@
     dest: /etc/sudoers.d/
     validate: /usr/sbin/visudo -cf %s
 
-# Note: Ubuntu 19.10 uses v1.2, later v1.3 changes config path to /etc/tlp.conf
-#       https://linrunner.de/en/tlp/docs/tlp-configuration.html
+- name: Check TLP config style
+  stat:
+    path: /etc/tlp.d
+  register: tlp_d
+
 - name: Configure TLP
+  copy:
+    src: 10-local-tlp.conf
+    dest: /etc/tlp.d/
+  when: tlp_d.stat.exists
+  notify: Restart tlp
+
+- name: Configure TLP (Legacy)
   block:
-    - name: TLP - Setup Battery 0 charge start threshold
+    - name: TLP - Setup Battery 0 charge start threshold (legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?START_CHARGE_THRESH_BAT0'
         line: START_CHARGE_THRESH_BAT0=65
-    - name: TLP - Setup Battery 0 charge end threshold
+        notify: Restart tlp
+    - name: TLP - Setup Battery 0 charge end threshold (legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?STOP_CHARGE_THRESH_BAT0'
         line: STOP_CHARGE_THRESH_BAT0=75
-    - name: TLP - Setup Battery 1 charge start threshold
+        notify: Restart tlp
+    - name: TLP - Setup Battery 1 charge start threshold (legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?START_CHARGE_THRESH_BAT1'
         line: START_CHARGE_THRESH_BAT1=65
-    - name: TLP - Setup Battery 1 charge end threshold
+        notify: Restart tlp
+    - name: TLP - Setup Battery 1 charge end threshold (legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?STOP_CHARGE_THRESH_BAT1'
         line: STOP_CHARGE_THRESH_BAT1=75
+        notify: Restart tlp
+  when: not tlp_d.stat.exists
 
 - name: Configure ImageMagick
   block:

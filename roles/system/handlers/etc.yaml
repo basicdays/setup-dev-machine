@@ -1,0 +1,3 @@
+- name: Restart tlp
+  command:
+    cmd: tlp start

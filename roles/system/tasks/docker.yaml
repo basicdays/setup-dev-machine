@@ -1,4 +1,4 @@
-- name: Install Docker
+- name: Install Docker (official)
   block:
     - name: Add Docker pre-reqs
       apt:
@@ -10,6 +10,12 @@
     - name: Add Docker repo
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_facts['distribution_release'] }} stable
-    - name: Install Docker
+    - name: Install Docker (official)
       apt:
         name: docker-ce
+  when: ansible_facts['distribution_version'] is version('20.04', '<')
+
+- name: Install Docker (universal)
+  apt:
+    name: 'docker.io'
+  when: ansible_facts['distribution_version'] is version('20.04', '>=')
