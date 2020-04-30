@@ -14,3 +14,17 @@
     - name: Install Node.js (official)
       apt:
         name: nodejs
+
+- name: Install Yarn (official)
+  block:
+    - name: Add Yarn repo key
+      apt_key:
+        id: 72ECF46A56B4AD39C907BBB71646B01B86E50310
+        url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    - name: Add Yarn repo
+      apt_repository:
+        filename: yarn
+        repo: deb https://dl.yarnpkg.com/debian/ stable main
+    - name: Install Yarn (official)
+      apt:
+        name: yarn
