@@ -1,0 +1,16 @@
+- name: Install Node.js (official)
+  block:
+    - name: Add Node.js pre-reqs
+      apt:
+        name: apt-transport-https
+    - name: Add Node.js repo key
+      apt_key:
+        id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    - name: Add Node.js repo
+      apt_repository:
+        filename: nodejs
+        repo: deb https://deb.nodesource.com/node_14.x {{ ansible_facts['distribution_release'] }} main
+    - name: Install Node.js (official)
+      apt:
+        name: nodejs

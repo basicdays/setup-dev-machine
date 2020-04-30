@@ -6,6 +6,7 @@
       url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
   - name: Add VirtualBox repo
     apt_repository:
+      filename: virtualbox
       repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian {{ ansible_facts['distribution_release'] }} contrib
   - name: Install VirtualBox (official)
     apt:

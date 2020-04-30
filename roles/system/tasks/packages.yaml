@@ -6,14 +6,6 @@
         question: wireshark-common/install-setuid
         vtype: boolean
         value: 'true'
-    - name: Remove unwanted default packages
-      apt:
-        name:
-          # We're using the Snap version instead
-          - nodejs
-          - nodejs-doc
-        state: absent
-        purge: yes
     - name: Install Ubuntu packages
       apt:
         name:
@@ -65,28 +57,54 @@
           - python3-venv
 
           # applications
+          # - calibre
+          - filelight
+          - gimp
+          - inkscape
+          - k3b
+          - kamoso
+          - kate
+          - kcalc
+          - kdf
+          - kgpg
+          - kmail
+          - kmarkdownwebview
+          - kontact
+          - korganizer
+          - krdc
+          - ksystemlog
+          - ktorrent
+          - libreoffice
+          - obs-studio
+          - partitionmanager
+          - pavucontrol
           # - okteta
-          - plasma-applet-redshift-control
-          - steam
+          - sweeper
           - yakuake
           - xsane
-    - name: Install Node.js (snap classic)
-      snap:
-        name: node
-        channel: 12/stable
-        classic: yes
+
+          # games
+          - prboom-plus
+          - steam
+
     - name: Install Slack (snap classic)
       snap:
         name: slack
         classic: yes
-    - name: Install VSCode (snap classic)
+
+    - name: Install Chromium (apt)
+      apt:
+        name: chromium-browser
+      when: ansible_facts['distribution_version'] is version('20.04', '<')
+    - name: Install Chromium (snap)
       snap:
-        name: code
-        classic: yes
+        name: chromium
+      when: ansible_facts['distribution_version'] is version('20.04', '>=')
+
     - name: Install snap applications
       snap:
         name:
-          - chromium
           - discord
+          - postman
           - spotify
           - telegram-desktop

@@ -1,0 +1,23 @@
+- name: Install VSCode (official)
+  block:
+    - name: Add VSCode pre-reqs
+      apt:
+        name: apt-transport-https
+    - name: Add M$ gpg key
+      copy:
+        src: packages.microsoft.gpg
+        dest: /usr/share/keyrings/
+    - name: Add VSCode repo
+      apt_repository:
+        filename: vscode
+        repo: deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main
+    - name: Install VSCode (official)
+      apt:
+        name: code
+  when: ansible_facts['distribution_version'] is version('20.04', '<')
+
+- name: Install VSCode (snap classic)
+  snap:
+    name: code
+    classic: yes
+  when: ansible_facts['distribution_version'] is version('20.04', '>=')
