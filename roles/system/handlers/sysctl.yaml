@@ -1,0 +1,3 @@
+- name: Reload notify limits
+  command:
+    cmd: sysctl --load=/etc/sysctl.d/15-local-inotify.conf

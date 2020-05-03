@@ -2,6 +2,7 @@
   copy:
     src: 15-local-inotify.conf
     dest: /etc/sysctl.d/
+  notify: Reload notify limits
 
 - name: Configure ssh
   block:
