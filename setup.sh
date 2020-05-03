@@ -14,4 +14,5 @@ pip3 install --user ansible
 ansible-pull \
 	--accept-host-key \
 	--url https://github.com/basicdays/setup-dev-machine.git \
-	--ask-become-pass
+	--ask-become-pass \
+	-i inventory/local.yaml
