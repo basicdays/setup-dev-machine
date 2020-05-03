@@ -3,10 +3,10 @@
 
 set -Eeuo pipefail
 
-sudo apt-get install -y git python3-pip
-pip3 install --user ansible
+#sudo apt-get install -y git python3-pip
+#pip3 install --user ansible
 # shellcheck source=/dev/null
-. "${HOME}/.profile"
+#. "${HOME}/.profile"
 
 # playbook_dir="${HOME}/Documents/wip/personal"
 # mkdir -p "${playbook_dir}"
