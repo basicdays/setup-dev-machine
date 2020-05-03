@@ -3,7 +3,8 @@
 
 # Install packages
 - include_tasks: docker.yaml
-- include_tasks: known-hosts.yaml
+# note: not very useful as it doesn't include IP addresses
+# - include_tasks: known-hosts.yaml
 - include_tasks: nodejs.yaml
 - include_tasks: packages.yaml
 - include_tasks: virtual-box.yaml

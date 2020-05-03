@@ -7,6 +7,6 @@
       - awsebcli
       - docker-compose
       - pip
+      - poetry
       - powerline-status
-      - virtualenv
       - ansible-lint

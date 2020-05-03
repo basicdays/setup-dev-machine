@@ -40,7 +40,7 @@
     path: /etc/tlp.d
   register: tlp_d
 
-- name: Configure TLP
+- name: Configure TLP (Current)
   copy:
     src: 10-local-tlp.conf
     dest: /etc/tlp.d/
@@ -49,25 +49,25 @@
 
 - name: Configure TLP (Legacy)
   block:
-    - name: TLP - Setup Battery 0 charge start threshold (legacy)
+    - name: TLP - Setup Battery 0 charge start threshold (Legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?START_CHARGE_THRESH_BAT0'
         line: START_CHARGE_THRESH_BAT0=65
       notify: Restart tlp
-    - name: TLP - Setup Battery 0 charge end threshold (legacy)
+    - name: TLP - Setup Battery 0 charge end threshold (Legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?STOP_CHARGE_THRESH_BAT0'
         line: STOP_CHARGE_THRESH_BAT0=75
       notify: Restart tlp
-    - name: TLP - Setup Battery 1 charge start threshold (legacy)
+    - name: TLP - Setup Battery 1 charge start threshold (Legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?START_CHARGE_THRESH_BAT1'
         line: START_CHARGE_THRESH_BAT1=65
       notify: Restart tlp
-    - name: TLP - Setup Battery 1 charge end threshold (legacy)
+    - name: TLP - Setup Battery 1 charge end threshold (Legacy)
       lineinfile:
         path: /etc/default/tlp
         regexp: '^#?STOP_CHARGE_THRESH_BAT1'

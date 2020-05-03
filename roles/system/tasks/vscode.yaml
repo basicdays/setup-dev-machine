@@ -14,10 +14,10 @@
     - name: Install VSCode (official)
       apt:
         name: code
-  when: ansible_facts['distribution_version'] is version('20.04', '<')
+#   when: ansible_facts['distribution_version'] is version('20.04', '<')
 
-- name: Install VSCode (snap classic)
-  snap:
-    name: code
-    classic: yes
-  when: ansible_facts['distribution_version'] is version('20.04', '>=')
+# - name: Install VSCode (snap classic)
+#   snap:
+#     name: code
+#     classic: yes
+#   when: ansible_facts['distribution_version'] is version('20.04', '>=')

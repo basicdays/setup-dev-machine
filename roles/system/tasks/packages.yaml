@@ -21,9 +21,11 @@
           - fail2ban
           - htop
           - imagemagick
+          - mesa-utils
           - openssh-server
           - powertop
           - tmux
+          # - usb-creator-kde
           - wine-stable
 
           # network tools
@@ -53,7 +55,7 @@
           - fonts-firacode
           # - pgadmin3
           # - postgresql-client
-          # - python3-pip
+          - python3-pip
           - python3-venv
 
           # applications
@@ -78,7 +80,7 @@
           - obs-studio
           - partitionmanager
           - pavucontrol
-          # - okteta
+          - okteta
           - sweeper
           - yakuake
           - xsane

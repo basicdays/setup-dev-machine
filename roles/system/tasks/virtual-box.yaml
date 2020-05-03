@@ -11,22 +11,22 @@
   - name: Install VirtualBox (official)
     apt:
       name: virtualbox-6.1
-  when: ansible_facts['distribution_version'] is version('20.04', '<')
+#  when: ansible_facts['distribution_version'] is version('20.04', '<')
 
-- name: Install VirtualBox (universal)
-  block:
-    - name: Set VirtualBox to accept license
-      debconf:
-        name: virtualbox-ext-pack
-        question: virtualbox-ext-pack/license
-        vtype: boolean
-        value: 'true'
-    - name: Install VirtualBox (universal)
-      apt:
-        name:
-          - virtualbox
-          - virtualbox-dkms
-          - virtualbox-ext-pack
-          - virtualbox-guest-additions-iso
-          - virtualbox-qt
-  when: ansible_facts['distribution_version'] is version('20.04', '>=')
+# - name: Install VirtualBox (universal)
+#   block:
+#     - name: Set VirtualBox to accept license
+#       debconf:
+#         name: virtualbox-ext-pack
+#         question: virtualbox-ext-pack/license
+#         vtype: boolean
+#         value: 'true'
+#     - name: Install VirtualBox (universal)
+#       apt:
+#         name:
+#           - virtualbox
+#           - virtualbox-dkms
+#           - virtualbox-ext-pack
+#           - virtualbox-guest-additions-iso
+#           - virtualbox-qt
+#   when: ansible_facts['distribution_version'] is version('20.04', '>=')
