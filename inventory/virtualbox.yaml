@@ -3,5 +3,5 @@ all:
     dev_machines:
       hosts:
         virtualbox:
-          ansible_host: 192.168.99.102
+          ansible_host: 192.168.56.102
           ansible_python_interpreter: /usr/bin/python3

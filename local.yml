@@ -12,16 +12,8 @@
       backup: yes
 
   tasks:
-    - name: Update packages
-      apt:
-        cache_valid_time: 86400 # one day
-        upgrade: dist
     - include_role:
         name: system
-    - name: Cleanup packages
-      apt:
-        autoclean: yes
-        autoremove: yes
 
 - name: Setup dev machine (user)
   hosts: dev_machines

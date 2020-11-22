@@ -1,0 +1,5 @@
+- name: Cleanup packages
+  apt:
+    autoclean: yes
+    autoremove: yes
+  when: ansible_facts['os_family'] is Debian

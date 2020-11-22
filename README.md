@@ -12,6 +12,9 @@ Confirmed working on the following platforms:
 - system
 	- setup DKMS secure-boot? (https://wiki.ubuntu.com/UEFI/SecureBoot/DKMS)
 	- Create new deb file for printer and add task for it
+	- Disable wakeup from USB
+	  - sudo echo XHCI | sudo tee /proc/acpi/wakeup
+	  - echo XHCI > /proc/acpi/wakeup
 - user
 	- figure out current way to install aws cli tools
 	- setup minica and self-signed certs

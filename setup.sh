@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Bootstrap the local machine from default install
-
 set -Eeuo pipefail
+
+# Bootstrap the local machine from default install
 
 sudo apt-get install -y git python3-pip
 pip3 install --user ansible

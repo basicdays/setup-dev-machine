@@ -1,4 +1,4 @@
-- name: Install VSCode (official)
+- name: Install VSCode (Ubuntu, official)
   block:
     - name: Add VSCode pre-reqs
       apt:
@@ -14,10 +14,4 @@
     - name: Install VSCode (official)
       apt:
         name: code
-#   when: ansible_facts['distribution_version'] is version('20.04', '<')
-
-# - name: Install VSCode (snap classic)
-#   snap:
-#     name: code
-#     classic: yes
-#   when: ansible_facts['distribution_version'] is version('20.04', '>=')
+  when: ansible_facts['os_family'] is Debian

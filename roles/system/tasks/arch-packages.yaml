@@ -1,0 +1,52 @@
+- name: Install Arch packages
+  block:
+    - name: Install Arch packages
+      pacman:
+        name:
+          # base
+          - base
+          - linux
+          - linux-firmware
+
+          # boot loader
+          - efibootmgr
+          - grub
+          - os-prober
+
+          # hardware
+
+          # editors
+          - vi
+          - vim
+
+          # file system tools
+          - cifs-utils
+          - dosfstools
+          - e2fsprogs
+          - parted
+
+          # docs
+          - man-db
+          - man-pages
+
+          # system tools
+          - ansible
+          - htop
+          - reflector
+          - tmux
+
+          # network tools
+          - curl
+          - networkmanager
+          - networkmanager-openvpn
+          - openssh
+
+          # git
+          - git
+
+          # development
+          - base-devel
+
+          # todo: need to find a way to conditionally install these
+          # - intel-ucode
+          # - amd-ucode

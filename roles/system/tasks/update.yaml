@@ -1,0 +1,11 @@
+- name: Update packages (Debian)
+  apt:
+    cache_valid_time: 86400 # one day
+    upgrade: dist
+  when: ansible_facts['os_family'] is Debian
+
+- name: Update packages (Arch)
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  when: ansible_facts['os_family'] is ArchLinux

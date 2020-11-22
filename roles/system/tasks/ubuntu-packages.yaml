@@ -1,11 +1,11 @@
-- name: Install packages
+- name: Install Ubuntu packages
   block:
     - name: Set Wireshark to use group privs
       debconf:
         name: wireshark-common
         question: wireshark-common/install-setuid
         vtype: boolean
-        value: 'true'
+        value: "true"
     - name: Install Ubuntu packages
       apt:
         name:
@@ -16,13 +16,13 @@
           - acpi-call-dkms
           - tlp
 
-          # system tools
+          # file system tools
           - cifs-utils
-          - fail2ban
+
+          # system tools
           - htop
           - imagemagick
           - mesa-utils
-          - openssh-server
           - powertop
           - tmux
           # - usb-creator-kde
@@ -30,9 +30,11 @@
 
           # network tools
           - curl
+          - fail2ban
           # - net-tools
           # - bridge-utils
           # - wavemon
+          - openssh-server
           - wireshark
 
           # git
@@ -46,10 +48,26 @@
           - autoconf
           - automake
           - build-essential
+          - cmake
           - gettext
           - libtool
           - m4
           - pkg-config
+
+          # amethyst dependencies (https://github.com/amethyst/amethyst#dependencies)
+          - build-essential
+          - cmake
+          - libasound2-dev
+          - libexpat1-dev
+          # Is this still needed? not official dep, but fixed font errors
+          - libfontconfig1-dev
+          - libfreetype6-dev
+          - libssl-dev
+          - libx11-dev
+          - libxcb-composite0-dev
+          - openssl
+          - pkg-config
+          - python3
 
           # programming
           - fonts-firacode
@@ -70,7 +88,7 @@
           - kdf
           - kgpg
           - kmail
-          - kmarkdownwebview
+          # - kmarkdownwebview
           - kontact
           - korganizer
           - krdc
@@ -81,6 +99,7 @@
           - partitionmanager
           - pavucontrol
           - okteta
+          - pulseaudio-module-gsettings # 20.04 only?
           - sweeper
           - yakuake
           - xsane

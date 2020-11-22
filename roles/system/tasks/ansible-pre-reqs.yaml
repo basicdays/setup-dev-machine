@@ -1,4 +1,4 @@
-- name: Install Ansible module pre-reqs
+- name: Install Ansible module pre-reqs (Ubuntu)
   apt:
     name:
       # needed by debconf module
@@ -7,3 +7,13 @@
       - python3-lxml
       # needed by pip module
       - python3-pip
+  when: ansible_facts['os_family'] is Debian
+
+- name: Install Ansible module pre-reqs (Arch)
+  pacman:
+    name:
+      # needed by xml module
+      - python-lxml
+      # needed by pip module
+      - python-pip
+  when: ansible_facts['os_family'] is ArchLinux
