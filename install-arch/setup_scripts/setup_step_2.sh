@@ -49,6 +49,7 @@ systemctl enable sshd.service
 
 echo "Installing grub"
 sed -i -e '/GRUB_THEME=/ s/=.*/="/usr/share/grub/themes/breeze/theme.txt"/' /etc/default/grub
+# todo: enable lvm and boot crypt
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig --output /boot/grub/grub.cfg
 
