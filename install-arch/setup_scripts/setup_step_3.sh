@@ -36,30 +36,30 @@ pacman -Syu --needed --noconfirm \
 	texinfo \
 	tmux
 
-pacman -Syu --noconfirm cups cups-pdf
+pacman -Syu --needed --noconfirm cups cups-pdf
 systemctl enable cups
+systemctl start cups
 
 # video drivers
-pacman -Syu --needed --noconfirm \
-	mesa \
-	vulkan-intel \
+pacman -Syu --needed --noconfirm mesa vulkan-intel
 
-pacman -Syu virtualbox-guest-utils
-systemctl enable vboxservice
+# pacman -Syu --needed --noconfirm virtualbox-guest-utils
+# systemctl enable vboxservice
+# systemctl start vboxservice
 
 # xorg
+# xorg-fonts-100dpi \
 pacman -Syu --needed --noconfirm \
 	xorg-server \
-	# xorg-fonts-100dpi \
-	xorg-docs \
+	xorg-docs
 
+# gnu-free-fonts \
+# cronie \
 pacman -Syu --needed --noconfirm \
-	# gnu-free-fonts \
 	ttf-droid \
 	ttf-dejavu \
 	ttf-liberation \
 	phonon-qt5-gstreamer \
-	# cronie \
 	sddm \
 	plasma-meta
 
@@ -108,7 +108,7 @@ sudo pacman -Syu --needed --noconfirm \
 	vlc \
 	yakuake
 
-pacman -Syu firefox chromium pepper-flash
+pacman -Syu --needed --noconfirm firefox chromium pepper-flash
 
 systemctl enable sddm
 systemctl start sddm

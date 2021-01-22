@@ -35,6 +35,7 @@ elif lscpu | grep -q -i "Intel"; then
 fi
 pacman -Syu --noconfirm \
 	$CPU_MICROCODE \
+	lvm2 \
 	grub \
 	breeze-grub \
 	efibootmgr \
@@ -45,13 +46,6 @@ pacman -Syu --noconfirm \
 	zsh
 systemctl enable NetworkManager.service
 systemctl enable sshd.service
-
-
-echo "Installing grub"
-sed -i -e '/GRUB_THEME=/ s/=.*/="/usr/share/grub/themes/breeze/theme.txt"/' /etc/default/grub
-# todo: enable lvm and boot crypt
-grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
-grub-mkconfig --output /boot/grub/grub.cfg
 
 
 echo "Setup sudo"
@@ -65,3 +59,14 @@ passwd
 echo "Create user $USER_NAME"
 useradd --create-home --groups adm,wheel --shell /usr/bin/zsh $USER_NAME
 passwd $USER_NAME
+
+
+echo "Setup init"
+sed -i -r -e '/^HOOKS=/s/filesystems/lvm2 filesystems/' /etc/mkinitcpio.conf
+mkinitcpio -P
+
+
+echo "Installing grub"
+sed -i -r -e 's,^#?GRUB_THEME=.*$,GRUB_THEME="/usr/share/grub/themes/breeze/theme.txt",' /etc/default/grub
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+grub-mkconfig --output /boot/grub/grub.cfg

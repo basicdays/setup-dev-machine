@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # Setup Arch install from live boot
-device=/dev/sda
+device=$1
 MIRROR_COUNTRY=US
 
 echo "Updating clock"
@@ -17,7 +17,7 @@ reflector \
 pacman -Sy
 
 
-./partitoning/lvm_partition.sh "$device"
+/root/setup_scripts/partitioning/lvm_partition.sh "$device"
 
 
 echo "Installing Arch essential packages"
@@ -31,8 +31,3 @@ genfstab -L /mnt >> /mnt/etc/fstab
 echo "chroot and setup system"
 cp -R ./setup_scripts /mnt/root/
 arch-chroot /mnt /root/setup_scripts/setup_step_2.sh
-
-
-echo "Unmounting partitions and rebooting"
-umount -R /mnt
-reboot

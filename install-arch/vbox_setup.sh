@@ -5,7 +5,9 @@ set -Eeuo pipefail
 # on guest instance after boot:
 # passwd && systemctl start sshd
 
+device=/dev/sda
+
 ip_address=$(./get_vm_ip.sh)
 ssh-copy-id -i "$HOME/.ssh/id_rsa.pub" "root@$ip_address"
 scp -r setup_scripts "root@$ip_address:./"
-ssh "root@$ip_address" ./scripts/setup_step_1.sh
+ssh "root@$ip_address" ./setup_scripts/setup_step_1.sh "$device"

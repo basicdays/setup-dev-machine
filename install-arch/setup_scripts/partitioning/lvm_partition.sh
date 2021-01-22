@@ -14,7 +14,7 @@ parted --script "$device" \
 	mklabel gpt \
 	mkpart '"efi"' fat32 0% 512MiB \
 	set 1 esp on \
-	mkpart '"lvm"' 512 100% \
+	mkpart '"lvm"' 512MiB 100% \
 	set 2 lvm on
 
 # lvm vgdisplay -> "Total PE" is total extents available for logical volumes
