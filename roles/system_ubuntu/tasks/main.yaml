@@ -3,17 +3,7 @@
 # Install any packages required by Ansible modules
 - include_tasks: ansible-pre-reqs.yaml
 
-- name: Arch Packages
-  block:
-    - include_tasks: arch-packages.yaml
-  when: ansible_facts['os_family'] is ArchLinux
-
-- name: Ubuntu Packages
-  block:
-    # Install packages
-    - include_tasks: ubuntu-packages.yaml
-  when: ansible_facts['os_family'] is Debian
-
+- include_tasks: packages.yaml
 - include_tasks: docker.yaml
 - include_tasks: nodejs.yaml
 - include_tasks: virtual-box.yaml

@@ -17,11 +17,11 @@ reflector \
 pacman -Sy
 
 
-/root/setup_scripts/partitioning/lvm_partition.sh "$device"
+./setup_scripts/partitioning/lvm_partition.sh "$device"
 
 
 echo "Installing Arch essential packages"
-pacstrap /mnt base linux linux-firmware
+pacstrap /mnt base linux linux-firmware mkinitcpio
 
 
 echo "Creating fstab"

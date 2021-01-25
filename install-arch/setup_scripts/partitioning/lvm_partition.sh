@@ -4,6 +4,10 @@ device=$1
 
 vg_name=vgprimary
 
+# bare metal
+# efi_dev=${device}p1
+# lvm_dev=${device}p2
+# vbox
 efi_dev=${device}1
 lvm_dev=${device}2
 root_dev=/dev/$vg_name/root

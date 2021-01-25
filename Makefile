@@ -11,14 +11,14 @@
 # -----
 
 lint:
-	@ansible-playbook -i inventory/local.yaml --syntax-check local.yml
-	@ansible-lint local.yml
+	@ansible-playbook -i inventories/local --syntax-check site.yml
+	@ansible-lint site.yml
 
 run-test:
-	@ansible-playbook -i inventory/virtualbox.yaml --ask-become-pass local.yml
+	@ansible-playbook -i inventories/virtualbox --ask-become-pass site.yml
 
 run-local:
-	@ansible-playbook -i inventory/local.yaml --ask-become-pass local.yml
+	@ansible-playbook -i inventories/local --ask-become-pass site.yml
 
 facts:
 	@ansible localhost -m setup

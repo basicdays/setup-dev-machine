@@ -2,6 +2,7 @@
   copy:
     src: 15-local-inotify.conf
     dest: /etc/sysctl.d/
+    mode: 0644
   notify: Reload notify limits
 
 - name: Configure ssh
@@ -10,11 +11,12 @@
       copy:
         src: ssh_config
         dest: /etc/ssh/
+        mode: 0644
     - name: Enable COLORFGBG in sshd_config
       lineinfile:
         path: /etc/ssh/sshd_config
         backrefs: yes
-        regexp: '^(?P<option>AcceptEnv (?:(?!COLORFGBG).)*)$'
+        regexp: "^(?P<option>AcceptEnv (?:(?!COLORFGBG).)*)$"
         line: '\g<option> COLORFGBG'
     # - name: Disable hostname hashing in ssh_config
     #   lineinfile:
@@ -31,49 +33,18 @@
 
 - name: Configure sudoers
   copy:
+    # from ../files
     src: 10-local-sudoer
     dest: /etc/sudoers.d/
     validate: /usr/sbin/visudo -cf %s
-
-- name: Check TLP config style
-  stat:
-    path: /etc/tlp.d
-  register: tlp_d
+    mode: 0440
 
 - name: Configure TLP (Current)
   copy:
     src: 10-local-tlp.conf
     dest: /etc/tlp.d/
-  when: tlp_d.stat.exists
+    mode: 0644
   notify: Restart tlp
-
-- name: Configure TLP (Legacy)
-  block:
-    - name: TLP - Setup Battery 0 charge start threshold (Legacy)
-      lineinfile:
-        path: /etc/default/tlp
-        regexp: '^#?START_CHARGE_THRESH_BAT0'
-        line: START_CHARGE_THRESH_BAT0=65
-      notify: Restart tlp
-    - name: TLP - Setup Battery 0 charge end threshold (Legacy)
-      lineinfile:
-        path: /etc/default/tlp
-        regexp: '^#?STOP_CHARGE_THRESH_BAT0'
-        line: STOP_CHARGE_THRESH_BAT0=75
-      notify: Restart tlp
-    - name: TLP - Setup Battery 1 charge start threshold (Legacy)
-      lineinfile:
-        path: /etc/default/tlp
-        regexp: '^#?START_CHARGE_THRESH_BAT1'
-        line: START_CHARGE_THRESH_BAT1=65
-      notify: Restart tlp
-    - name: TLP - Setup Battery 1 charge end threshold (Legacy)
-      lineinfile:
-        path: /etc/default/tlp
-        regexp: '^#?STOP_CHARGE_THRESH_BAT1'
-        line: STOP_CHARGE_THRESH_BAT1=75
-      notify: Restart tlp
-  when: not tlp_d.stat.exists
 
 - name: Configure ImageMagick
   block:

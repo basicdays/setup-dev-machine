@@ -13,7 +13,11 @@
 
   tasks:
     - include_role:
-        name: system
+        name: system_arch
+      when: ansible_facts['os_family'] is ArchLinux
+    - include_role:
+        name: system_ubuntu
+      when: ansible_facts['os_family'] is Debian
 
 - name: Setup dev machine (user)
   hosts: dev_machines

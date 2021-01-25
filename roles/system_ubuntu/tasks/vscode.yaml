@@ -1,0 +1,16 @@
+- name: Add VSCode pre-reqs
+  apt:
+    name: apt-transport-https
+- name: Add M$ gpg key
+  copy:
+    # from ../files
+    src: packages.microsoft.gpg
+    dest: /usr/share/keyrings/
+    mode: 0644
+- name: Add VSCode repo
+  apt_repository:
+    filename: vscode
+    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main
+- name: Install VSCode (official)
+  apt:
+    name: code

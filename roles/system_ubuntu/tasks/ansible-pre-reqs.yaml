@@ -1,0 +1,9 @@
+- name: Install Ansible module pre-reqs
+  apt:
+    name:
+      # needed by debconf module
+      - debconf-utils
+      # needed by xml module
+      - python3-lxml
+      # needed by pip module
+      - python3-pip

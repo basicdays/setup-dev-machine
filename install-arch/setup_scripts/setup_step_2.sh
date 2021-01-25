@@ -39,7 +39,6 @@ pacman -Syu --noconfirm \
 	grub \
 	breeze-grub \
 	efibootmgr \
-	os-prober \
 	networkmanager \
 	openssh \
 	sudo \

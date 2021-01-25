@@ -1,12 +1,12 @@
 galaxy_info:
   author: BasicDays
-  description: User installation
+  description: System installation
   license: MIT
   min_ansible_version: 2.9
   platforms:
     - name: ArchLinux
       versions:
         - all
-    - name: Debian
-      versions:
-        - all
+
+dependencies:
+  - role: kewlfft.aur

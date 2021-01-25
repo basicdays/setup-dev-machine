@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# Bootstrap the local machine from default install
+if ! command -v ansible &> /dev/null; then
+	if command -v apt-get &> /dev/null; then
+		sudo apt-get install -y git python3-pip
+		pip3 install --user ansible
+	elif command -v pacman &> /dev/null; then
+		pacman -Sy --needed --noconfirm ansible git
+		ansible-galaxy collection install community.general
+		ansible-galaxy install kewlfft.aur
+	fi
+fi
 
-sudo apt-get install -y git python3-pip
-pip3 install --user ansible
-# shellcheck source=/dev/null
-. "${HOME}/.profile"
-
-# playbook_dir="${HOME}/Documents/wip/personal"
-# mkdir -p "${playbook_dir}"
-# cd "${playbook_dir}"
 ansible-pull \
 	--accept-host-key \
 	--url https://github.com/basicdays/setup-dev-machine.git \

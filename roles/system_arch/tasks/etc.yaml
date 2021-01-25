@@ -1,0 +1,97 @@
+# - name: Increase inotify limits
+#   copy:
+#     src: 15-local-inotify.conf
+#     dest: /etc/sysctl.d/
+#   notify: Reload notify limits
+
+# - name: Configure ssh
+#   block:
+#     - name: Configure ssh_config
+#       copy:
+#         src: ssh_config
+#         dest: /etc/ssh/
+#     - name: Enable COLORFGBG in sshd_config
+#       lineinfile:
+#         path: /etc/ssh/sshd_config
+#         backrefs: yes
+#         regexp: '^(?P<option>AcceptEnv (?:(?!COLORFGBG).)*)$'
+#         line: '\g<option> COLORFGBG'
+#     # - name: Disable hostname hashing in ssh_config
+#     #   lineinfile:
+#     #     path: /etc/ssh/ssh_config
+#     #     backrefs: yes
+#     #     regexp: '^#?(?P<option>\s*HashKnownHosts.*)'
+#     #     line: '#\g<option>'
+#     # - name: Enable COLORFGBG in ssh_config
+#     #   lineinfile:
+#     #     path: /etc/ssh/ssh_config
+#     #     backrefs: yes
+#     #     regexp: '^(?P<option>\s*SendEnv (?:(?!COLORFGBG).)*)$'
+#     #     line: '\g<option> COLORFGBG'
+
+# - name: Configure sudoers
+#   copy:
+#     src: 10-local-sudoer
+#     dest: /etc/sudoers.d/
+#     validate: /usr/sbin/visudo -cf %s
+
+# - name: Check TLP config style
+#   stat:
+#     path: /etc/tlp.d
+#   register: tlp_d
+
+# - name: Configure TLP (Current)
+#   copy:
+#     src: 10-local-tlp.conf
+#     dest: /etc/tlp.d/
+#   when: tlp_d.stat.exists
+#   notify: Restart tlp
+
+# - name: Configure TLP (Legacy)
+#   block:
+#     - name: TLP - Setup Battery 0 charge start threshold (Legacy)
+#       lineinfile:
+#         path: /etc/default/tlp
+#         regexp: '^#?START_CHARGE_THRESH_BAT0'
+#         line: START_CHARGE_THRESH_BAT0=65
+#       notify: Restart tlp
+#     - name: TLP - Setup Battery 0 charge end threshold (Legacy)
+#       lineinfile:
+#         path: /etc/default/tlp
+#         regexp: '^#?STOP_CHARGE_THRESH_BAT0'
+#         line: STOP_CHARGE_THRESH_BAT0=75
+#       notify: Restart tlp
+#     - name: TLP - Setup Battery 1 charge start threshold (Legacy)
+#       lineinfile:
+#         path: /etc/default/tlp
+#         regexp: '^#?START_CHARGE_THRESH_BAT1'
+#         line: START_CHARGE_THRESH_BAT1=65
+#       notify: Restart tlp
+#     - name: TLP - Setup Battery 1 charge end threshold (Legacy)
+#       lineinfile:
+#         path: /etc/default/tlp
+#         regexp: '^#?STOP_CHARGE_THRESH_BAT1'
+#         line: STOP_CHARGE_THRESH_BAT1=75
+#       notify: Restart tlp
+#   when: not tlp_d.stat.exists
+
+# - name: Configure ImageMagick
+#   block:
+#     - name: ImageMagick - Increase memory
+#       xml:
+#         path: /etc/ImageMagick-6/policy.xml
+#         xpath: /policymap/policy[@domain='resource' and @name='memory']
+#         attribute: value
+#         value: 1GiB
+#     - name: ImageMagick - Increase area memory
+#       xml:
+#         path: /etc/ImageMagick-6/policy.xml
+#         xpath: /policymap/policy[@domain='resource' and @name='area']
+#         attribute: value
+#         value: 1GB
+#     - name: ImageMagick - Enable PDF processing
+#       xml:
+#         path: /etc/ImageMagick-6/policy.xml
+#         xpath: /policymap/policy[@domain='coder' and @pattern='PDF']
+#         attribute: rights
+#         value: read|write

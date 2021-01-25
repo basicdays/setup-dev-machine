@@ -1,0 +1,13 @@
+- include_tasks: update.yaml
+
+# Install any packages required by Ansible modules
+- include_tasks: ansible-pre-reqs.yaml
+
+- include_tasks: packages.yaml
+
+# Modify configuration files
+# - include_tasks: etc.yaml
+# note: not very useful as it doesn't include IP addresses
+# - include_tasks: known-hosts.yaml
+
+- include_tasks: "cleanup.yaml"

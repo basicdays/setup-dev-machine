@@ -1,0 +1,4 @@
+# https://docs.ansible.com/ansible/latest/collections/community/general/virtualbox_inventory.html
+plugin: community.general.virtualbox
+groups:
+  dev_machines: "'ansible_test' in (inventory_hostname)"

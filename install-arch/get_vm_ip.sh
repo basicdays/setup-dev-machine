@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-vmname=arch
+vmname=setup-test-arch
 vbox_net_interface=vboxnet0
 mac_address=$(vboxmanage showvminfo --machinereadable "$vmname" | \
 	awk -F = '/macaddress2/ {gsub(/"/, "", $2); print $2}')

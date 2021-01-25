@@ -1,0 +1,7 @@
+- name: Install Ansible module pre-reqs
+  pacman:
+    name:
+      # needed by xml module
+      - python-lxml
+      # needed by pip module
+      - python-pip

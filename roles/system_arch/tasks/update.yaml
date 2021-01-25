@@ -1,0 +1,4 @@
+- name: Update packages
+  pacman:
+    update_cache: yes
+    upgrade: yes
