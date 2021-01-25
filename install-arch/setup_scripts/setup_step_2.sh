@@ -1,24 +1,30 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+# Setup Arch within arch-chroot
 
+# HOST_NAME=trigger-3-vbox-1
+HOST_NAME=$1
 TIME_ZONE=America/Chicago
 LOCALE=en_US.UTF-8
-HOST_NAME=trigger-3-vbox-1
 USER_NAME=basicdays
 
+echo_section() {
+	echo -e "\n# $1\n"
+}
 
-echo "Setting timezone to $TIME_ZONE"
+
+echo_section "Setting timezone to $TIME_ZONE"
 ln -sf "/usr/share/zoneinfo/$TIME_ZONE" /etc/localtime
 hwclock --systohc
 
 
-echo "Setting locale to $LOCALE"
+echo_section "Setting locale to $LOCALE"
 sed -i "/^#$LOCALE/s/^#//g" /etc/locale.gen
 locale-gen
 echo "LANG=$LOCALE" > /etc/locale.conf
 
 
-echo "Setting hostname to $HOST_NAME"
+echo_section "Setting hostname to $HOST_NAME"
 echo "$HOST_NAME" > /etc/hostname
 cat <<END > /etc/hosts
 127.0.0.1 localhost
@@ -27,7 +33,12 @@ cat <<END > /etc/hosts
 END
 
 
-echo "Installing packages and enabling services"
+echo_section "Setup init"
+sed -i '/^HOOKS=/s/filesystems/lvm2 filesystems/' /etc/mkinitcpio.conf
+mkinitcpio -P
+
+
+echo_section "Installing packages and enabling services"
 if lscpu | grep -q -i "AMD"; then
 	CPU_MICROCODE=amd-ucode
 elif lscpu | grep -q -i "Intel"; then
@@ -42,30 +53,28 @@ pacman -Syu --noconfirm \
 	networkmanager \
 	openssh \
 	sudo \
-	zsh
+	zsh \
+	ansible
 systemctl enable NetworkManager.service
 systemctl enable sshd.service
 
 
-echo "Setup sudo"
+echo_section "Setup sudo"
 echo "%wheel ALL=(ALL) ALL" | EDITOR="tee" visudo /etc/sudoers.d/10-wheel
 
 
-echo "Set root password"
+echo_section "Set root password"
 passwd
 
 
-echo "Create user $USER_NAME"
+echo_section "Create user $USER_NAME"
 useradd --create-home --groups adm,wheel --shell /usr/bin/zsh $USER_NAME
 passwd $USER_NAME
+sudo -u "$USER_NAME" ansible-galaxy collection install community.general
+sudo -u "$USER_NAME" ansible-galaxy role install kewlfft.aur
 
 
-echo "Setup init"
-sed -i -r -e '/^HOOKS=/s/filesystems/lvm2 filesystems/' /etc/mkinitcpio.conf
-mkinitcpio -P
-
-
-echo "Installing grub"
-sed -i -r -e 's,^#?GRUB_THEME=.*$,GRUB_THEME="/usr/share/grub/themes/breeze/theme.txt",' /etc/default/grub
+echo_section "Installing grub"
+sed -i -r 's,^#?GRUB_THEME=.*$,GRUB_THEME="/usr/share/grub/themes/breeze/theme.txt",' /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig --output /boot/grub/grub.cfg

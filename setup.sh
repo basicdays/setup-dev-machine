@@ -8,7 +8,7 @@ if ! command -v ansible &> /dev/null; then
 	elif command -v pacman &> /dev/null; then
 		pacman -Sy --needed --noconfirm ansible git
 		ansible-galaxy collection install community.general
-		ansible-galaxy install kewlfft.aur
+		ansible-galaxy role install kewlfft.aur
 	fi
 fi
 

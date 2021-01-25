@@ -6,8 +6,11 @@ set -Eeuo pipefail
 # passwd && systemctl start sshd
 
 device=/dev/sda
+hostname=trigger-3-vbox-1
 
 ip_address=$(./get_vm_ip.sh)
 ssh-copy-id -i "$HOME/.ssh/id_rsa.pub" "root@$ip_address"
 scp -r setup_scripts "root@$ip_address:./"
-ssh "root@$ip_address" ./setup_scripts/setup_step_1.sh "$device"
+# Variables are expected to be evaluated before sending to source
+# shellcheck disable=SC2029
+ssh "root@$ip_address" ./setup_scripts/setup_step_1.sh "$device" "$hostname"
